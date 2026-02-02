@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Asistencia por QR</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <h1 class="logo">📚 Asistencia QR</h1>
+      <div class="nav-links">
+        <button type="button" class="nav-btn active" data-page="inicio">Inicio</button>
+        <button type="button" class="nav-btn" data-page="estudiante">Estudiante</button>
+        <button type="button" class="nav-btn" data-page="profesor">Profesor</button>
+        <button type="button" class="nav-btn" data-page="reportes">Reportes</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Página de Inicio -->
+    <div class="page active" id="inicio">
+      <section class="hero">
+        <h1>Sistema de Asistencia mediante QR</h1>
+        <p>Una forma rápida y sencilla de tomar asistencia en clase</p>
+      </section>
+
+      <div class="features">
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Escanear QR</h3>
+          <p>Los estudiantes escanean un código QR para registrar su asistencia</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Rápido y Eficiente</h3>
+          <p>Registro instantáneo sin papeleo ni tiempo perdido</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Reportes Detallados</h3>
+          <p>Visualiza reportes de asistencia por clase o estudiante</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Página de Estudiante -->
+    <div class="page" id="estudiante">
+      <h2>Registro de Asistencia</h2>
+      
+      <div class="card">
+        <h3>Registrarse como Estudiante</h3>
+        <form id="formRegistroEstudiante">
+          <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+          </div>
+          <div class="form-group">
+            <label for="matricula">Matrícula:</label>
+            <input type="text" id="matricula" name="matricula" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email (opcional):</label>
+            <input type="email" id="email" name="email">
+          </div>
+          <button type="submit" class="btn btn-primary">Registrarse</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h3>Marcar Asistencia</h3>
+        <p>Selecciona tu información y escanea el código QR de la clase</p>
+        
+        <div class="form-group">
+          <label for="selectEstudiante">Selecciona tu nombre:</label>
+          <select id="selectEstudiante">
+            <option value="">-- Cargando estudiantes --</option>
+          </select>
+        </div>
+
+        <div id="qrScanner">
+          <h4>Escanear Código QR</h4>
+          <video id="preview" width="300" height="300" style="border: 1px solid #ddd;"></video>
+          <p id="scanStatus">Preparando cámara...</p>
+        </div>
+
+        <div id="scanResult" style="display: none;">
+          <p id="resultText"></p>
+          <button class="btn btn-secondary" onclick="continuarEscaneo()">Escanear Otra Clase</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Página de Profesor -->
+    <div class="page" id="profesor">
+      <h2>Panel de Profesor</h2>
+
+      <div class="card">
+        <h3>Crear Nueva Clase</h3>
+        <form id="formCrearClase">
+          <div class="form-group">
+            <label for="nombreClase">Nombre de la Clase:</label>
+            <input type="text" id="nombreClase" name="nombreClase" placeholder="Ej: Programación Web - Sección A" required>
+          </div>
+          <div class="form-group">
+            <label for="descripcionClase">Descripción (opcional):</label>
+            <textarea id="descripcionClase" name="descripcionClase" placeholder="Descripción de la clase" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Crear Clase</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h3>Mis Clases</h3>
+        <div id="clasesContainer">
+          <p style="text-align:center;">Cargando clases...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Página de Reportes -->
+    <div class="page" id="reportes">
+      <h2>Reportes de Asistencia</h2>
+
+      <div class="card">
+        <h3>Reporte por Clase</h3>
+        <div class="form-group">
+          <label for="selectClaseReporte">Selecciona una clase:</label>
+          <select id="selectClaseReporte" onchange="cargarAsistenciaClase()">
+            <option value="">-- Selecciona una clase --</option>
+          </select>
+        </div>
+        <div id="tablaPresentesClase"></div>
+      </div>
+
+      <div class="card">
+        <h3>Reporte por Estudiante</h3>
+        <div class="form-group">
+          <label for="selectEstudianteReporte">Selecciona un estudiante:</label>
+          <select id="selectEstudianteReporte" onchange="cargarAsistenciaEstudiante()">
+            <option value="">-- Selecciona un estudiante --</option>
+          </select>
+        </div>
+        <div id="tablaAsistenciasEstudiante"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/jsQR.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

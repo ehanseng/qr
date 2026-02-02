@@ -1,0 +1,25 @@
+// .vscode/settings.json - Configuración recomendada para VS Code
+
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.exclude": {
+    "node_modules": true,
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "*.db": false
+  },
+  "search.exclude": {
+    "node_modules": true,
+    "**/.git": true
+  },
+  "liveServer.settings.port": 3000,
+  "liveServer.settings.root": "/frontend"
+}
